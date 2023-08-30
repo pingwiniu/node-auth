@@ -12,7 +12,7 @@ Welcome to node-auth! This project is designed to provide a foundation for handl
 ## Setup
 1. Clone the repository to your local machine:
    ```sh
-   git clone https://github.com/your-username/your-project.git
+   git clone https://github.com/pingwiniu/node-auth.git
    ```
 
 2. Install the required dependencies:
