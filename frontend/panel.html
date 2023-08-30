@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Panel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>User Panel</h4>
+                    </div>
+                    <div class="card-body" id="userInfo">
+                    </div>
+                    <div class="card-footer">
+                        <button id="logoutButton" class="btn btn-danger">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const authToken = localStorage.getItem("token");
+
+        if (authToken) {
+            fetch("http://localhost:3000/api/v1/user/info", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${authToken}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const userInfoDiv = document.getElementById("userInfo");
+                userInfoDiv.innerHTML = `
+                    <h5>Name: ${data.user.username}</h5>
+                    <p>Email: ${data.user.email}</p>
+                    <!-- Add more user info fields here -->
+                `;
+            })
+            .catch(error => {
+                console.error("Error fetching user info:", error);
+            });
+        }
+
+        const logoutButton = document.getElementById("logoutButton");
+        logoutButton.addEventListener("click", () => {
+            localStorage.removeItem("token");
+            
+            fetch("http://localhost:3000/api/v1/auth/logout", {
+                method: "GET",
+            })
+            .then(response => {
+                window.location.href = "/login";
+            })
+            .catch(error => {
+                console.error("Error during logout:", error);
+            });
+        });
+    </script>
+</body>
+</html>
