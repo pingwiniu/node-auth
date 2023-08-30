@@ -8,6 +8,7 @@ Welcome to node-auth! This project is designed to provide a foundation for handl
 - Protected routes for authorized users
 - Dynamic route loading for modular route management
 - Basic HTML frontend for user interactions
+- Local SQlite database
 
 ## Setup
 1. Clone the repository to your local machine:
